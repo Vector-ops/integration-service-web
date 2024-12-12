@@ -35,6 +35,8 @@ const CreateEvent = () => {
 		if (!response.ok) {
 			console.log("failed request", response);
 		}
+		setEventType("signup");
+		setVariables([{ key: "", value: "" }]);
 	};
 
 	const handleVariableChange = (
@@ -101,7 +103,7 @@ const CreateEvent = () => {
 					Add Variable
 				</Button>
 			</div>
-			<Button onClick={handleSave}>Save</Button>
+			<Button onClick={handleSave}>Submit</Button>
 		</div>
 	);
 };

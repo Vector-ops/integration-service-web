@@ -6,8 +6,10 @@ import { IEventData, IIntegrationData } from "../../types";
 
 const page = () => {
 	const [brandId, setBrandId] = React.useState<number>();
-	const [templateId, setTemplateId] = React.useState<number>();
-	const [variableMapping, setVariableMapping] = React.useState<any>();
+	const [templateId, setTemplateId] = React.useState<string>();
+	const [variableMapping, setVariableMapping] = React.useState<{
+		[key: string]: string;
+	}>();
 	const [integrationName, setIntegrationName] = React.useState<string>();
 	const [eventId, setEventId] = React.useState<number>();
 	const [events, setEvents] = React.useState<IEventData[]>([]);
@@ -70,10 +72,25 @@ const page = () => {
 						eventId,
 						integrationId: integration.id,
 						brandId,
-						customData: variableMapping,
+						customData: Object.entries(variableMapping || {})
+							.sort(([, a], [, b]) => Number(a) - Number(b))
+							.map(([key]) => key),
 						isEnabled: true,
 					}),
 				}
+			);
+
+			console.log(
+				JSON.stringify({
+					templateId,
+					eventId,
+					integrationId: integration.id,
+					brandId,
+					customData: Object.entries(variableMapping || {})
+						.sort(([, a], [, b]) => Number(a) - Number(b))
+						.map(([key]) => key),
+					isEnabled: true,
+				})
 			);
 
 			if (!response.ok) {
@@ -82,6 +99,12 @@ const page = () => {
 
 			const data = await response.json();
 			console.log("Template saved successfully:", data);
+
+			setBrandId(undefined);
+			setTemplateId(undefined);
+			setVariableMapping(undefined);
+			setIntegrationName(undefined);
+			setEventId(undefined);
 		} catch (error) {
 			console.error("Error saving template:", error);
 		}
@@ -123,9 +146,9 @@ const page = () => {
 					</label>
 					<input
 						id="templateId"
-						type="number"
+						type="text"
 						value={templateId || ""}
-						onChange={(e) => setTemplateId(Number(e.target.value))}
+						onChange={(e) => setTemplateId(e.target.value)}
 						className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline"
 					/>
 				</div>
@@ -197,15 +220,19 @@ const page = () => {
 									</label>
 									<input
 										id={variable}
-										type="text"
+										type="number"
 										value={
 											variableMapping?.[variable] || ""
 										}
 										onChange={(e) =>
-											setVariableMapping((prev: any) => ({
-												...prev,
-												[variable]: e.target.value,
-											}))
+											setVariableMapping((prev: any) => {
+												const newMapping = {
+													...(prev || {}),
+												};
+												newMapping[variable] =
+													e.target.value;
+												return newMapping;
+											})
 										}
 										className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline"
 									/>

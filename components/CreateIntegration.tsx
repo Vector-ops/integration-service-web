@@ -40,21 +40,31 @@ const CreateIntegration = ({
 
 		const data = await response.json();
 		console.log("Integration submitted successfully:", data);
+
+		setIntegrationName("");
+		setBrandId(undefined);
+		setIsEnabled(true);
+		setCredentials(undefined);
 	};
 
 	return (
 		<div className="flex w-[50%] flex-col justify-center items-center gap-5 p-5 border border-gray-500 rounded-lg 	">
 			<div className="flex justify-center items-center gap-2.5">
 				<label htmlFor="integrationName">Integration Name:</label>
-				<input
+				<select
 					id="integrationName"
-					type="string"
 					value={integrationName || ""}
 					onChange={(e) =>
 						setIntegrationName(e.target.value.toLowerCase())
 					}
 					className="p-2 border border-gray-500 rounded w-[400px]"
-				/>
+				>
+					<option value="">Select an option</option>
+					<option value="interakt">Interakt</option>
+					<option value="bitespeed">Bitespeed</option>
+					<option value="bik">Bik</option>
+					<option value="kwikchat">Kwikchat</option>
+				</select>
 			</div>
 			<div>
 				<label htmlFor="brandId">Brand ID:</label>
@@ -80,7 +90,8 @@ const CreateIntegration = ({
 					/>
 				</div>
 			)}
-			{integrationName === "kwikchat" && (
+			{(integrationName === "kwikchat" ||
+				integrationName === "interakt") && (
 				<div className="flex justify-center items-center gap-2.5">
 					<label htmlFor="apikey">API Key:</label>
 					<input
