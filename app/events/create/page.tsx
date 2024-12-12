@@ -1,5 +1,4 @@
 import CreateEvent from "@/components/CreateEvent";
-import CreateIntegration from "@/components/CreateIntegration";
 import React from "react";
 
 const Page = () => {

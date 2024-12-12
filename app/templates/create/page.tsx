@@ -18,7 +18,7 @@ const page = () => {
 		const fetchEvents = async () => {
 			try {
 				const response = await fetch(
-					`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/events`
+					`${process.env.NEXT_PUBLIC_APP_URL}/events`
 				);
 				const data: IEventData[] = await response.json();
 				setEvents(data);
@@ -35,7 +35,7 @@ const page = () => {
 			const fetchIntegrationData = async () => {
 				try {
 					const response = await fetch(
-						`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/integrations?brandId=${brandId}`
+						`${process.env.NEXT_PUBLIC_APP_URL}/integrations?brandId=${brandId}`
 					);
 					const data: IIntegrationData[] = await response.json();
 					setIntegrationData(data);
@@ -59,7 +59,7 @@ const page = () => {
 			}
 
 			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/templates/whatsapp`,
+				`${process.env.NEXT_PUBLIC_APP_URL}/templates/whatsapp`,
 				{
 					method: "POST",
 					headers: {

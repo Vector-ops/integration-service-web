@@ -4,7 +4,6 @@ import Container from "./Container";
 import SocialIcons from "./SocialIcons";
 
 const Footer = () => {
-	const date = new Date();
 	return (
 		<footer className="py-4 w-full">
 			<Container>

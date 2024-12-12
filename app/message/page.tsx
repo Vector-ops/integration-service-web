@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import channel from "@/lib/rabbitmq";
 import React, { useEffect, useState } from "react";
 import { IEventData, IRabbitMQMessage } from "../types";
 
@@ -17,7 +16,7 @@ const page = () => {
 		const fetchEventData = async () => {
 			try {
 				const response = await fetch(
-					"http://localhost:3000/api/v1/events"
+					`${process.env.NEXT_PUBLIC_APP_URL}/events`
 				);
 				const data: IEventData[] = await response.json();
 				setEventData(data);
@@ -38,10 +37,27 @@ const page = () => {
 			customData: variables!,
 		};
 
-		channel.sendToQueue(
-			process.env.QUEUE_NAME!,
-			Buffer.from(JSON.stringify(message))
-		);
+		try {
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_PUB_URL}/publish`,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(message),
+				}
+			);
+
+			if (!response.ok) {
+				throw new Error("Failed to send message");
+			}
+
+			const result = await response.json();
+			console.log("Message sent successfully:", result);
+		} catch (error) {
+			console.error("Error sending message:", error);
+		}
 	};
 
 	return (

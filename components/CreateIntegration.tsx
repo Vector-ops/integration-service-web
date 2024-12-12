@@ -16,7 +16,7 @@ const CreateIntegration = ({
 
 	const handleSubmit = async () => {
 		const response = await fetch(
-			new URL(`${process.env.NEXT_PUBLIC_API_URL!}/api/v1/integration`),
+			new URL(`${process.env.NEXT_PUBLIC_API_URL!}/integration`),
 			{
 				method: "POST",
 				headers: {

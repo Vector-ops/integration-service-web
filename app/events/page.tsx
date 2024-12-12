@@ -16,7 +16,7 @@ const page = ({ params }: { params: { slug: string } }) => {
 		const fetchEventData = async () => {
 			try {
 				const response = await fetch(
-					`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/events`
+					`${process.env.NEXT_PUBLIC_APP_URL}/events`
 				);
 				const data: IEventData[] = await response.json();
 				setEventData(data);

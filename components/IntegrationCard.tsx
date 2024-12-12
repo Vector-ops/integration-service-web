@@ -1,18 +1,9 @@
 import { IIntegration } from "@/app/types";
-import { WhatsappLogo } from "@phosphor-icons/react";
-import { Mail } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
-import React, { ReactNode } from "react";
 import gmail from "../public/static/gmail.png";
 import whatsapp from "../public/static/whatsapp.png";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "./ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 const Icons: { [key: string]: StaticImageData } = {
 	whatsapp: whatsapp,

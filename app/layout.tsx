@@ -68,9 +68,9 @@ export default function RootLayout({
 							{children}
 							<Analytics />
 						</div>
-						<div className="flex justify-center items-center">
+						{/* <div className="flex justify-center items-center">
 							<Footer />
-						</div>
+						</div> */}
 					</main>
 					{/* </SidebarProvider> */}
 				</ThemeProvider>

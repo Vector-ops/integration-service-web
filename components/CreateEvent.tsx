@@ -19,7 +19,7 @@ const CreateEvent = () => {
 		}, {} as Record<string, string>);
 
 		const response = await fetch(
-			`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/events`,
+			`${process.env.NEXT_PUBLIC_APP_URL}/events`,
 			{
 				method: "POST",
 				headers: {
@@ -32,10 +32,8 @@ const CreateEvent = () => {
 			}
 		);
 
-		if (response.ok) {
-			alert("Event saved successfully!");
-		} else {
-			alert("Failed to save event.");
+		if (!response.ok) {
+			console.log("failed request", response);
 		}
 	};
 
@@ -80,7 +78,7 @@ const CreateEvent = () => {
 						<input
 							type="text"
 							name="value"
-							placeholder="Value"
+							placeholder="Description"
 							value={variable.value}
 							onChange={(e) => handleVariableChange(index, e)}
 							className="p-1 mr-2 rounded border border-gray-300 w-36"

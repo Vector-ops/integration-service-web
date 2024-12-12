@@ -1,9 +1,7 @@
 "use client";
-
 import { ICredentials, IIntegrationData } from "@/app/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
-import { useParams } from "next/navigation";
 import React from "react";
 
 const page = () => {
@@ -18,7 +16,7 @@ const page = () => {
 		const fetchIntegrationData = async () => {
 			try {
 				const response = await fetch(
-					`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/integrations?brandId=${brandId}`
+					`${process.env.NEXT_PUBLIC_APP_URL}/integrations?brandId=${brandId}`
 				);
 				const data: IIntegrationData[] = await response.json();
 				setIntegrationData(data);
@@ -36,7 +34,7 @@ const page = () => {
 	) => {
 		try {
 			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/integrations/${integrationId}`,
+				`${process.env.NEXT_PUBLIC_APP_URL}/integrations/${integrationId}`,
 				{
 					method: "PUT",
 					headers: {
@@ -72,7 +70,7 @@ const page = () => {
 	) => {
 		try {
 			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/integrations/${integrationId}`,
+				`${process.env.NEXT_PUBLIC_APP_URL}/integrations/${integrationId}`,
 				{
 					method: "PUT",
 					headers: {

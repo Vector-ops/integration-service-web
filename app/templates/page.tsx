@@ -13,7 +13,7 @@ const page = () => {
 		const fetchIntegrationData = async () => {
 			try {
 				const response = await fetch(
-					`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/templates/whatsapp?brandId=${brandId}`
+					`${process.env.NEXT_PUBLIC_APP_URL}/templates/whatsapp?brandId=${brandId}`
 				);
 				const data: IProviderTemplate[] = await response.json();
 				setTemplateData(data);
@@ -28,7 +28,7 @@ const page = () => {
 	const toggleTemplate = async (templateId: number, isEnabled: boolean) => {
 		try {
 			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/templates/whatsapp/${templateId}`,
+				`${process.env.NEXT_PUBLIC_APP_URL}/templates/whatsapp/${templateId}`,
 				{
 					method: "PUT",
 					headers: {
