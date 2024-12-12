@@ -37,6 +37,9 @@ const page = () => {
 			customData: variables!,
 		};
 
+		console.log("Publish URL:", process.env.NEXT_PUBLIC_PUB_URL);
+		console.log("Message payload:", message);
+
 		try {
 			const response = await fetch(
 				`${process.env.NEXT_PUBLIC_PUB_URL}/publish`,
@@ -49,8 +52,13 @@ const page = () => {
 				}
 			);
 
+			console.log("first");
+
 			if (!response.ok) {
-				throw new Error("Failed to send message");
+				const errorText = await response.text();
+				throw new Error(
+					`Failed to send message: ${response.status} - ${errorText}`
+				);
 			}
 
 			const result = await response.json();
@@ -134,7 +142,7 @@ const page = () => {
 							)}
 					</>
 				)}
-				<Button type="button" onClick={() => sendMessage}>
+				<Button type="button" onClick={sendMessage}>
 					Send Message
 				</Button>
 			</form>
